@@ -19,9 +19,9 @@ app.get('/hello', function(req, res){
   res.json({greetings: "Hello, API"});
 });
 
-app.post('/api/fileanalyse', upload.none('inputfield'), (req, res) => {
-  console.log(req.body);
-  res.send('done')
+app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
+  const { originalname, mimetype, size } = req.file;
+  res.json({name: originalname, type: mimetype, size});
 });
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
